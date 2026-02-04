@@ -8,6 +8,9 @@ module alu (
 	output logic zero
 );
 
+	logic [4:0] shamt;
+	assign shamt = b[4:0];
+
 	always_comb begin
 		case(alu_op)
 			ALU_ADD: 
@@ -21,11 +24,11 @@ module alu (
 			ALU_XOR:
 				result = a ^ b;
 			ALU_SLL:
-				result = a << b[4:0];
+				result = a << shamt;
 			ALU_SRL:
-				result = a >> b[4:0];
+				result = a >> shamt;
 			ALU_SRA:
-				result = $signed(a) >>> b[4:0];
+				result = $signed(a) >>> shamt;
 			ALU_SLT:
 				result = ($signed(a) < $signed(b)) ? 32'd1 : 32'd0;
 			ALU_SLTU:

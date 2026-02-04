@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 
-import riscv_pkg.sv::*;
+import riscv_pkg::*;
 
 module alu_tb;
 	logic [31:0] a_tb;
@@ -21,7 +21,7 @@ module alu_tb;
 		$dumpfile("sim/alu_wave.vcd");
 		$dumpvars(0, alu_tb);
 
-		$monitor("Time=%0t | Op=%s | A=%d | B=%d | Res=%d | Zero=%b", $time, alu_op_tb.name(), a_tb, b_tb, result_tb, zero_tb);
+		$monitor("Time=%0t | Op=%b | A=%d | B=%d | Res=%d | Zero=%b", $time, alu_op_tb, a_tb, b_tb, result_tb, zero_tb);
 
 		a_tb = 32'd10;
 		b_tb = 32'd20;

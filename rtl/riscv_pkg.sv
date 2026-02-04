@@ -10,7 +10,7 @@ package riscv_pkg;
 		ALU_SRL  = 4'b0110, //Shift Right Logical
 		ALU_SRA  = 4'b0111, //Shift Right Arithmetic
 		ALU_SLT  = 4'b1000, //Set Less Than
-		ALU_SLTU = 4'b1001, //Set Less Than Unsigned
+		ALU_SLTU = 4'b1001  //Set Less Than Unsigned
 	} alu_op_t;
 
 endpackage
