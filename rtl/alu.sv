@@ -1,23 +1,12 @@
+import riscv_pkg::*;
+
 module alu (
 	input  logic [31:0] a,
 	input  logic [31:0] b,
-	input  logic [3:0] alu_op,
+	input  alu_op_t alu_op,
 	output logic [31:0] result,
 	output logic zero
 );
-
-	typedef enum logic [3:0] {
-		ALU_ADD  = 4'b0000,
-		ALU_SUB  = 4'b0001,
-		ALU_AND  = 4'b0010,
-		ALU_OR   = 4'b0011,
-		ALU_XOR  = 4'b0100,
-		ALU_SLL  = 4'b0101, //Shift Left Logical
-		ALU_SRL  = 4'b0111, //Shift Right Logical
-		ALU_SRA  = 4'b1000, //Shift Right Arithmetic
-		ALU_SLT  = 4'b1001, //Set Less Than
-		ALU_SLTU = 4'b1010, //Set Less Than Unsigned
-	} alu_op_t;
 
 	always_comb begin
 		case(alu_op)
