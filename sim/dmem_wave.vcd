@@ -1,0 +1,73 @@
+$date
+	Fri Feb 13 14:52:49 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module dmem_tb $end
+$var wire 32 ! rdata_tb [31:0] $end
+$var reg 32 " addr_tb [31:0] $end
+$var reg 1 # clk $end
+$var reg 32 $ wdata_tb [31:0] $end
+$var reg 1 % we_tb $end
+$scope module dut $end
+$var wire 32 & addr [31:0] $end
+$var wire 1 # clk $end
+$var wire 32 ' rdata [31:0] $end
+$var wire 32 ( wdata [31:0] $end
+$var wire 1 % we $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b10101101110011101010111111001101 (
+bx '
+b0 &
+1%
+b10101101110011101010111111001101 $
+0#
+b0 "
+bx !
+$end
+#5000
+b10101101110011101010111111001101 !
+b10101101110011101010111111001101 '
+1#
+#10000
+0#
+#15000
+b11011110110011111110110011011010 !
+b11011110110011111110110011011010 '
+1#
+b11011110110011111110110011011010 $
+b11011110110011111110110011011010 (
+b100 "
+b100 &
+#20000
+0#
+#25000
+b10101101110011101010111111001101 !
+b10101101110011101010111111001101 '
+1#
+b0 "
+b0 &
+0%
+#30000
+0#
+#35000
+b11011110110011111110110011011010 !
+b11011110110011111110110011011010 '
+1#
+b100 "
+b100 &
+#40000
+0#
+#45000
+1#
