@@ -1,23 +1,25 @@
 `timescale 1ns/1ps
 
 module regfile_tb;
+    // Khai bao tin hieu
     logic clk;
     logic rst_n_tb;
-    logic [4:0] rs1_addr_tb, rs2_addr_tb, rd_addr_tb;
-    logic we_tb;
-    logic [31:0] wdata_tb;
-    logic [31:0] rdata1_tb, rdata2_tb;
+    logic we3_tb; // Write Enable
+    logic [4:0]  a1_tb, a2_tb; // Read Address
+    logic [4:0]  a3_tb; // Write Address
+    logic [31:0] wd3_tb; // Write Data
+    logic [31:0] rd1_tb, rd2_tb; // Read Data
 
     regfile dut (
         .clk(clk),
         .rst_n(rst_n_tb),
-        .rs1_addr(rs1_addr_tb),
-        .rs2_addr(rs2_addr_tb),
-        .rdata1(rdata1_tb),
-        .rdata2(rdata2_tb),
-        .we(we_tb),
-        .rd_addr(rd_addr_tb),
-        .wdata(wdata_tb)
+        .we3(we3_tb),
+        .a1(a1_tb),
+        .a2(a2_tb),
+        .a3(a3_tb),
+        .wd3(wd3_tb),
+        .rd1(rd1_tb),
+        .rd2(rd2_tb)
     );
 
     initial begin
@@ -25,45 +27,43 @@ module regfile_tb;
         forever #5 clk = ~clk;
     end
 
+    // Kich ban test
     initial begin
         $dumpfile("sim/regfile_wave.vcd");
         $dumpvars(0, regfile_tb);
-        
-        $monitor("Time=%0t | We=%b | Write_addr=%d | Data=%h | Read1_addr=%d | Out1=%h | Read2_addr=%d | Out2=%h", $time, we_tb, rd_addr_tb, wdata_tb, rs1_addr_tb, rdata1_tb, rs2_addr_tb, rdata2_tb);
 
-        rst_n_tb = 0; we_tb = 0; rs1_addr_tb = 0; rs2_addr_tb = 0; 
-		rd_addr_tb = 0; wdata_tb = 0;
+        $monitor("Time=%0t | We=%b | Wr(x%0d)=%d | Rd(x%0d)=%d | Rd(x%0d)=%d", $time, we3_tb, a3_tb, wd3_tb, a1_tb, rd1_tb, a2_tb, rd2_tb);
+
+        rst_n_tb = 0; 
+		we3_tb = 0; a1_tb = 0; a2_tb = 0; a3_tb = 0; wd3_tb = 0;
         #10;
         rst_n_tb = 1;
+
+        // Ghi so 100 vao x1
+        a3_tb = 5'd1; wd3_tb = 32'd100; we3_tb = 1;
+        #10;
+        we3_tb = 0;
+
+        // Doc lai x1
+        a1_tb = 5'd1;
         #10;
 
-        // Ghi gia tri 0xADCBECAF vao thanh ghi so 1
-        @(posedge clk);
-        we_tb = 1; rd_addr_tb = 5'd1; wdata_tb = 32'hADCBECAF;
+        // Ghi so 200 vao x2
+        a3_tb = 5'd2; wd3_tb = 32'd200; we3_tb = 1;
         #10;
-        
-        @(posedge clk);
-        we_tb = 0;
-        rs1_addr_tb = 5'd1;
-        #5;
+        we3_tb = 0;
 
-        // Thu ghi du lieu vao thanh ghi x0
-        @(posedge clk);
-        we_tb = 1; rd_addr_tb = 5'd0; wdata_tb = 32'hFFFFFFFF;
-        
-        @(posedge clk);
-        we_tb = 0;
-        rs1_addr_tb = 5'd0;
-        #5;
+        // Doc dong thoi x1 va x2
+        a1_tb = 5'd1; a2_tb = 5'd2;
+        #10;
 
-        // Doc 2 cong cung mot luc
-        // Ghi vao thanh ghi so 2 gia tri 0xFDACBDAC
-        @(posedge clk);
-        we_tb = 1; rd_addr_tb = 5'd2; wdata_tb = 32'hFDACBDAC;
-        @(posedge clk);
-        we_tb = 0;
-        rs1_addr_tb = 5'd1;
-        rs2_addr_tb = 5'd2;
+        // Ghi vao x0
+        a3_tb = 5'd0; wd3_tb = 32'd999; we3_tb = 1;
+        #10;
+        we3_tb = 0;
+
+        // Doc lai x0
+        a1_tb = 5'd0;
         #10;
 
         $finish;
