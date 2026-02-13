@@ -12,7 +12,8 @@ ADDI x2, x0, 20   ; x2 = 20        (Nạp giá trị 20 vào thanh ghi x2)
 ADD  x3, x1, x2   ; x3 = 10 + 20   (Cộng x1 với x2, lưu kết quả 30 vào x3)
 SW   x3, 4(x0)    ; Mem[4] = 30    (Lưu số 30 vào bộ nhớ tại địa chỉ 4)
 LW   x4, 4(x0)    ; x4 = Mem[4]    (Đọc lại từ bộ nhớ địa chỉ 4 vào x4 để kiểm tra)
-
+```
 ## Cách chạy mô phỏng (Simulation):
 ```bash
 iverilog -g2012 -o sim/riscv_test rtl/*.sv tb/riscv_tb.sv && vvp sim/riscv_test
+```
